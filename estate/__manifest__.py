@@ -1,18 +1,13 @@
 {
-    'name': "Real Estate",
+    'name': 'Real Estate',
     'version': '1.0',
     'depends': ['base'],
-    'author': "Author Name",
-    'category': 'Category',
+    'author': 'Your Name',
+    'category': 'Real Estate',
     'description': """
-    Description text
+    A module for managing real estate properties.
     """,
-    # data files always loaded at installation
-    'data': [
-        'views/mymodule_view.xml',
-    ],
-    # data files containing optionally loaded demonstration data
-    'demo': [
-        'demo/demo_data.xml',
-    ],
+    'data': [],
+    'installable': True,
+    'application': True,
 }
