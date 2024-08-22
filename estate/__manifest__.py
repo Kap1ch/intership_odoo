@@ -7,7 +7,9 @@
     'description': """
     A module for managing real estate properties.
     """,
-    'data': [],
+    'data': [
+        'security/ir.model.access.csv',
+             ],
     'installable': True,
     'application': True,
 }
