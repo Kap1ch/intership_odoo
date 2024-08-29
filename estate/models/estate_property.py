@@ -5,6 +5,7 @@ from odoo import fields, models
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate Property"
+    # _inherit = "estate.property"
 
     name = fields.Char(required=True)
     description = fields.Text()
@@ -32,3 +33,11 @@ class EstateProperty(models.Model):
         ('sold', 'Sold'),
         ('canceled', 'Canceled'),
     ], required=True, copy=False, default='new')
+
+    property_type_id = fields.Many2one("estate.property.type", string="Property Type")
+    buyer_id = fields.Many2one("res.partner", string="Buyer", copy=False)
+    seller_id = fields.Many2one("res.users", string="Salesperson", default=lambda self: self.env.uid)
+    tag_ids = fields.Many2many("estate.property.tag", string="Tags")
+    offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
+
+
