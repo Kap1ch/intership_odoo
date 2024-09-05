@@ -31,21 +31,38 @@ class EstateProperty(models.Model):
                 delta = offer.deadline - offer.create_date.date()
                 offer.validity_days = delta.days
 
+    # def action_accept_offer(self):
+    #     for record in self:
+    #         if record.status == 'accepted':
+    #             raise UserError("This offer has already been accepted.")
+    #         record.status = 'accepted'
+    #         record.property_id.write({
+    #             'selling_price': record.price,
+    #             'buyer_id': record.partner_id.id,
+    #             'state': 'offer_accepted'
+    #         })
+    #     return True
+    #
+    # def action_refuse_offer(self):
+    #     for record in self:
+    #         if record.status == 'accepted':
+    #             raise UserError("Cannot refuse an accepted offer.")
+    #         record.status = 'refused'
+    #     return True
     def action_accept_offer(self):
         for record in self:
-            if record.status == 'accepted':
-                raise UserError("This offer has already been accepted.")
+            property = record.property_id
+            if property.state != 'offer_received':
+                raise UserError('You can only accept an offer if it is in the "Offer Received" state.')
             record.status = 'accepted'
-            record.property_id.write({
+            property.write({
+                'state': 'offer_accepted',
                 'selling_price': record.price,
-                'buyer_id': record.partner_id.id,
-                'state': 'offer_accepted'
+                'buyer_id': record.partner_id.id
             })
-        return True
 
     def action_refuse_offer(self):
         for record in self:
             if record.status == 'accepted':
-                raise UserError("Cannot refuse an accepted offer.")
+                raise UserError('You cannot refuse an accepted offer.')
             record.status = 'refused'
-        return True
