@@ -1,10 +1,4 @@
 <odoo>
-<!--    <record id="estate_property_action" model="ir.actions.act_window">-->
-<!--        <field name="name">Properties</field>-->
-<!--        <field name="res_model">estate.property</field>-->
-<!--        <field name="view_mode">tree,form</field>-->
-<!--    </record>-->
-
     <record id="view_estate_property_tree" model="ir.ui.view">
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
@@ -30,6 +24,10 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Property">
+                <header>
+                    <button name="action_sold_property" type="object" string="SOLD"/>
+                    <button name="action_cancel_property" type="object" string="CANCEL"/>
+                </header>
                 <sheet>
                     <group>
                         <h1><field name="name" required="1"/></h1>
@@ -43,6 +41,7 @@
                     </group>
                     <group>
                         <group>
+                            <field name="state"/>
                             <field name="property_type_id" string="Property Type"/>
                             <field name="postcode"/>
                             <field name="expected_price" required="1"/>
@@ -72,6 +71,10 @@
                                 <tree>
                                     <field name="price"/>
                                     <field name="partner_id"/>
+                                    <field name="validity_days" string="Validity (days)"/>
+                                    <field name="deadline"/>
+                                    <button name="action_accept_offer" type="object" icon="fa-check"/>
+                                    <button name="action_refuse_offer" type="object" icon="fa-times"/>
                                     <field name="status"/>
                                 </tree>
                             </field>
