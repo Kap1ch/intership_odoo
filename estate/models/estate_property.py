@@ -57,7 +57,6 @@ class EstateProperty(models.Model):
     def _check_selling_price(self):
         for record in self:
             if record.selling_price and record.expected_price:
-                # Используем float_compare для сравнения
                 if record.selling_price < 0.9 * record.expected_price:
                     raise ValidationError("The selling price cannot be lower than 90% of the expected price.")
 
